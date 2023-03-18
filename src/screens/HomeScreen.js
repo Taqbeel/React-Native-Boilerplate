@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { ButtonBox, Header, NameBar, Registrations } from '../components';
 import * as colors from '../styles/colors';
 import { scale } from '../utils/scale';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import { SelectList } from 'react-native-dropdown-select-list'
 
 
@@ -74,10 +73,8 @@ class HomeScreen extends React.Component {
 
         <NameBar name={`Registered By ${sortBy} - ${cars.length}`} />
 
-        {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: scale(20) }}> */}
         <View style={{ marginHorizontal: scale(20) }}>
           <Text style={{ color: colors.PRIMARY, fontWeight: 'bold', fontSize: scale(16), }}>Sort By:</Text>
-
 
           <SelectList
             setSelected={(selected) => this.setState({ selected }, () => this.loadData(selected))}
@@ -87,37 +84,6 @@ class HomeScreen extends React.Component {
             boxStyles={{ marginTop: scale(10) }}
 
           />
-          {/* <RadioForm
-            formHorizontal={true}
-            animation={true}
-          >
-            {
-              radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i} >
-
-                  <RadioButtonInput
-                    obj={obj}
-                    index={i}
-                    isSelected={value === i}
-                    onPress={() => { this.setState({ value: i }, () => this.loadData(i)) }}
-                    borderWidth={1}
-                    buttonInnerColor={colors.SECONDARY}
-                    buttonOuterColor={value === i ? colors.PRIMARY : colors.BLACK}
-                    buttonSize={15}
-                    buttonOuterSize={20}
-                  />
-                  <RadioButtonLabel
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={true}
-                    onPress={() => { this.setState({ value: i }, () => this.loadData(i)) }}
-                    labelStyle={{ fontSize: scale(14), color: colors.PRIMARY }}
-                    labelWrapStyle={{ marginRight: scale(15) }}
-                  />
-                </RadioButton>
-              ))
-            }
-          </RadioForm> */}
         </View>
         <Registrations navigation={navigation} items={cars} sortBy={sortBy} />
 
