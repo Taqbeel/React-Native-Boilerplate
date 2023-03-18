@@ -17,10 +17,10 @@ class RegistrationsHolder extends PureComponent {
     const { navigation, item, sortBy } = this.props;
     const { Name, Year, Origin, } = item[0];
 
-    const length = this.props.item.length;
+    const length = this.props.item?.length;
 
-    const name = Name.substring(0, Name.indexOf(' '));
-    const year = Year.substring(0, Year.indexOf('-'));
+    const name = Name?.substring(0, Name?.indexOf(' '));
+    const year = Year?.substring(0, Year?.indexOf('-'));
 
     const title = sortBy == 'Name' ? name : sortBy == 'Year' ? year : sortBy == 'Origin' ? Origin : ''
 

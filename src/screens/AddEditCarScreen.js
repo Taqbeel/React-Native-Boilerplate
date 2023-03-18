@@ -6,6 +6,7 @@ import { addEditCar, deleteCar } from '../redux/actions';
 import * as colors from '../styles/colors';
 import { ButtonBox, Header, TextBox } from '../components';
 import { scale } from '../utils/scale';
+import { showAlertMessage } from '../constants';
 
 class AddEditCarScreen extends React.Component {
 
@@ -24,20 +25,20 @@ class AddEditCarScreen extends React.Component {
   }
 
   componentDidMount() {
-    if (__DEV__) {
-      this.setState({
-        name: 'Suzuki',
-        miles: '12312313',
-        cylinders: '1222',
-        dispacement: '12314',
-        horsepower: '124',
-        weight: '1234',
-        acceleration: 'qqweqwr',
-        year: '2002',
-        origin: 'Pak',
-        id: 0,
-      })
-    }
+    // if (__DEV__) {
+    //   this.setState({
+    //     name: 'Suzuki',
+    //     miles: '12312313',
+    //     cylinders: '1222',
+    //     dispacement: '12314',
+    //     horsepower: '124',
+    //     weight: '1234',
+    //     acceleration: 'qqweqwr',
+    //     year: '2002',
+    //     origin: 'Pak',
+    //     id: 0,
+    //   })
+    // }
     this._loadData();
   }
 
@@ -62,18 +63,35 @@ class AddEditCarScreen extends React.Component {
 
   _addEditCar = async () => {
 
+    if (this.state.name == '') {
+      showAlertMessage('Alert', 'Name Is Required');
+      return;
+    } else if (this.state.year == '') {
+      showAlertMessage('Alert', 'Year Is Required')
+      return;
+    } else if (this.state.origin == '') {
+      showAlertMessage('Alert', 'Origin Is Required')
+      return;
+    }
+
+
     if (this.state.edit) {
       await this.props.deleteCar(this.props.cars, this.state.id);
     }
+
+
+    const name = this.state.name.indexOf(' ');
+    const year = this.state.year.indexOf('-');
+
     let newCar = {
-      Name: this.state.name + ' ',
+      Name: this.state.name + `${name > -1? '' : ' '}`,
       Miles_per_Gallon: this.state.miles,
       Cylinders: this.state.cylinders,
       Displacement: this.state.dispacement,
       Horsepower: this.state.horsepower,
       Weight_in_lbs: this.state.weight,
       Acceleration: this.state.acceleration,
-      Year: this.state.year + '-',
+      Year: this.state.year + `${year > -1? '' : '-'}`,
       Origin: this.state.origin,
       id: this.state.cars.length + 1
     }
@@ -144,7 +162,7 @@ class AddEditCarScreen extends React.Component {
             <TextBox placeholder="Origin" value={origin} onChangeText={origin => this.setState({ origin })} />
           </View>
 
-          <ButtonBox customStyle={{marginHorizontal: scale(20)}} title={edit ? 'Edit' : 'Add'} onPress={() => this._addEditCar()} />
+          <ButtonBox customStyle={{ marginHorizontal: scale(20) }} title={edit ? 'Edit' : 'Add'} onPress={() => this._addEditCar()} />
 
         </KeyboardAwareScrollView>
 

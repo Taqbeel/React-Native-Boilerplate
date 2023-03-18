@@ -6,6 +6,7 @@ import { ButtonBox, Header, NameBar, Registrations } from '../components';
 import * as colors from '../styles/colors';
 import { scale } from '../utils/scale';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import { SelectList } from 'react-native-dropdown-select-list'
 
 
 class HomeScreen extends React.Component {
@@ -13,6 +14,12 @@ class HomeScreen extends React.Component {
   state = {
     cars: [],
     sortBy: '',
+    selected: 0,
+    dropdown_props: [
+      { value: 'Name', key: 0 },
+      { value: 'Year', key: 1 },
+      { value: 'Origin', key: 2 },
+    ],
     value: 0,
     radio_props: [
       { label: 'Name', value: 0 },
@@ -33,6 +40,7 @@ class HomeScreen extends React.Component {
 
   loadData = async (by) => {
 
+    console.log('by-->>>', by)
     await this.setState({ cars: [], value: 0 });
     let cars;
     if (by == 0) {
@@ -55,7 +63,7 @@ class HomeScreen extends React.Component {
   render() {
 
     const { navigation, user } = this.props;
-    const { cars, sortBy, value, radio_props } = this.state;
+    const { cars, sortBy, selected, dropdown_props, value, radio_props } = this.state;
 
     return (
       <View style={styles.container}>
@@ -66,9 +74,20 @@ class HomeScreen extends React.Component {
 
         <NameBar name={`Registered By ${sortBy} - ${cars.length}`} />
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: scale(20) }}>
+        {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: scale(20) }}> */}
+        <View style={{ marginHorizontal: scale(20) }}>
           <Text style={{ color: colors.PRIMARY, fontWeight: 'bold', fontSize: scale(16), }}>Sort By:</Text>
-          <RadioForm
+
+
+          <SelectList
+            setSelected={(selected) => this.setState({ selected }, () => this.loadData(selected))}
+            data={dropdown_props}
+            save="key"
+            placeholder='Name'
+            boxStyles={{ marginTop: scale(10) }}
+
+          />
+          {/* <RadioForm
             formHorizontal={true}
             animation={true}
           >
@@ -98,7 +117,7 @@ class HomeScreen extends React.Component {
                 </RadioButton>
               ))
             }
-          </RadioForm>
+          </RadioForm> */}
         </View>
         <Registrations navigation={navigation} items={cars} sortBy={sortBy} />
 

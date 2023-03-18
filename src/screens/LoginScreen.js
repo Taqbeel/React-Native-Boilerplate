@@ -21,8 +21,8 @@ class LoginScreen extends Component {
 
         if (__DEV__) {
             this.setState({
-                username: '12345678912',
-                password: '12345678'
+                username: 'taqbeel',
+                password: 'taqbeel'
             });
         }
     }
