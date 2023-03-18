@@ -36,17 +36,25 @@ class SignupScreen extends Component {
     }
 
     _signupButtonTapped = async () => {
+
+        const emailReg = new RegExp(
+            /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
+        );
+        const passReg = new RegExp(
+            /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+        );
+        
         if (this.state.name == '') {
             showAlertMessage('Alert', 'Enter Name');
             return;
-        } else if (this.state.email == '') {
-            showAlertMessage('Alert', 'Enter Email');
+        } else if (this.state.email == '' || !emailReg.test(this.state.email)) {
+            showAlertMessage('Alert', 'Enter Valid Email');
             return;
         } else if (this.state.username == '' || this.state.username.length < 4) {
             showAlertMessage('Alert', 'Invalid username');
             return;
-        } else if (this.state.password == '' || this.state.password.length < 8) {
-            showAlertMessage('Alert', 'Short password');
+        } else if (this.state.password == '' || !passReg.test(this.state.password)) {
+            showAlertMessage('Alert', ' Password must contain at least a symbol, upper and lower case letters and a number');
             return;
         } else if (this.state.password !== this.state.confirmPassword) {
             showAlertMessage('Alert', 'Password did not match');
