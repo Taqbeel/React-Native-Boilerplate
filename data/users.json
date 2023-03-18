@@ -1,0 +1,14 @@
+[
+    {
+       "name":"Mr. Taqbeel",
+       "username":"taqbeel",
+       "email":"taqbeel@gmail.com",
+       "password":"taqbeel"
+    },
+    {
+        "name":"Random User",
+        "username":"randomuser",
+        "email":"randomuser@gmail.com",
+        "password":"randomuser"
+    }
+]
