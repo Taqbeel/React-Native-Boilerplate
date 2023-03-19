@@ -35,6 +35,10 @@ class HomeScreen extends React.Component {
 
     await this.props.deleteCar(this.props.cars, id);
 
+    if(cars.length == 0){
+      this.props.navigation.goBack();
+    }
+
     this.setState({ cars: cars, });
 
   }
