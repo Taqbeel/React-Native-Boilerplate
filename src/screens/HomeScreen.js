@@ -39,8 +39,9 @@ class HomeScreen extends React.Component {
 
   loadData = async (by) => {
 
-    console.log('by-->>>', by)
     await this.setState({ cars: [], value: 0 });
+
+    // Sorting cars by Name/Year/Origin using lodash
     let cars;
     if (by == 0) {
       cars = _.groupBy(this.props.cars, event => event.Name.substring(0, event.Name.indexOf(' ')));
@@ -62,7 +63,7 @@ class HomeScreen extends React.Component {
   render() {
 
     const { navigation, user } = this.props;
-    const { cars, sortBy, selected, dropdown_props, value, radio_props } = this.state;
+    const { cars, sortBy, selected, dropdown_props, } = this.state;
 
     return (
       <View style={styles.container}>
@@ -85,8 +86,8 @@ class HomeScreen extends React.Component {
 
           />
         </View>
-        <Registrations navigation={navigation} items={cars} sortBy={sortBy} />
 
+        <Registrations navigation={navigation} items={cars} sortBy={sortBy} />
 
         <ButtonBox customStyle={{
           marginHorizontal: scale(20),

@@ -22,6 +22,7 @@ class StackNavigator extends Component {
           headerTintColor: colors.WHITE,
           headerStyle: { backgroundColor: colors.PRIMARY },
         }}>
+          {/* A state checker if a user is logged in or not to navigate to a page accordingly */}
         <Stack.Screen options={{ headerShown: false }} name="CheckState" component={CheckState} />
 
         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />

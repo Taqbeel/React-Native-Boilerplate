@@ -30,11 +30,14 @@ class HomeScreen extends React.Component {
 
   _onDelete = async (id, index) => {
 
+    // delete car from current list
     let cars = [...this.state.cars];
     cars.splice(index, 1);
 
+    // delete car from redux state and persist new data
     await this.props.deleteCar(this.props.cars, id);
 
+    // go back if cars list is empty
     if(cars.length == 0){
       this.props.navigation.goBack();
     }

@@ -19,6 +19,7 @@ class LoginScreen extends Component {
 
     async componentDidMount() {
 
+        // login credentials for dev
         if (__DEV__) {
             this.setState({
                 username: 'taqbeel',
@@ -37,6 +38,7 @@ class LoginScreen extends Component {
             return;
         }
 
+        // passing user to redux to persist if valid user
         let response = await this.props.userLogin(this.state.username.toLowerCase(), this.state.password, this.props.users);
         if (response.status) {
             this.props.navigation.navigate('HomeScreen')
@@ -50,7 +52,7 @@ class LoginScreen extends Component {
 
             <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: scale(30), backgroundColor: colors.PRIMARY }} >
 
-
+{/*KeyboardAwareScrollView to automatically adjust view when keyboard is open  */}
                 <KeyboardAwareScrollView
                     keyboardShouldPersistTaps='handled'
                     showsVerticalScrollIndicator={false}

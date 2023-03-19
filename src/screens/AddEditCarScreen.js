@@ -25,25 +25,29 @@ class AddEditCarScreen extends React.Component {
   }
 
   componentDidMount() {
-    // if (__DEV__) {
-    //   this.setState({
-    //     name: 'Suzuki',
-    //     miles: '12312313',
-    //     cylinders: '1222',
-    //     dispacement: '12314',
-    //     horsepower: '124',
-    //     weight: '1234',
-    //     acceleration: 'qqweqwr',
-    //     year: '2002',
-    //     origin: 'Pak',
-    //     id: 0,
-    //   })
-    // }
+
+        // Add car data for dev
+    if (__DEV__) {
+      this.setState({
+        name: 'Suzuki',
+        miles: '12312313',
+        cylinders: '1222',
+        dispacement: '12314',
+        horsepower: '124',
+        weight: '1234',
+        acceleration: 'qqweqwr',
+        year: '2002',
+        origin: 'Pak',
+        id: 0,
+      })
+    }
     this._loadData();
   }
 
   _loadData = () => {
     this.setState({ cars: this.props.cars })
+    
+    // get data of car from previous screen if in edit mode
     if (this.props.route.params?.edit) {
       this.setState({
         edit: true,
@@ -75,10 +79,16 @@ class AddEditCarScreen extends React.Component {
     }
 
 
+    //if in edit mode delete the current car than modify to update in redux list
     if (this.state.edit) {
       await this.props.deleteCar(this.props.cars, this.state.id);
     }
 
+
+    // Home screen sorting is based on Name which requires at least 1 
+    // white space and Year which requires at leat 1 "-" therefore 
+    // adding or editing a car needs a whitespace in name and a "-" 
+    //in year so it doesn't crash the app  
 
     const name = this.state.name.indexOf(' ');
     const year = this.state.year.indexOf('-');
@@ -98,6 +108,7 @@ class AddEditCarScreen extends React.Component {
 
     let cars = [...this.props.cars, newCar];
 
+    // add or edit a car and persist in redux
     let response = await this.props.addEditCar(cars);
     if (response.status) {
       this.props.navigation.goBack();

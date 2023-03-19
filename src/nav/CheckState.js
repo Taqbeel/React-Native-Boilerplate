@@ -32,6 +32,7 @@ class CheckState extends Component {
     rerenderer = () => this.setState({ render: 2 })
 
     render() {
+        // Redux was giving redux props null on first 2 renders so i had to modify it accordingly.
         if (this.state.render == 1) {
             this.rerenderer()
         }

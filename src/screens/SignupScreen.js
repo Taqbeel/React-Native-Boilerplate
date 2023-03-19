@@ -23,6 +23,7 @@ class SignupScreen extends Component {
 
     componentDidMount() {
 
+        // signup credentials for dev
         if (__DEV__) {
             this.setState({
                 name: 'Taqbeel',
@@ -37,9 +38,12 @@ class SignupScreen extends Component {
 
     _signupButtonTapped = async () => {
 
+        // Email validation regex
         const emailReg = new RegExp(
             /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
         );
+
+        // Password validation regex
         const passReg = new RegExp(
             /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
         );
@@ -67,6 +71,8 @@ class SignupScreen extends Component {
             email: this.state.email,
             password: this.state.password,
         }
+
+        // passing user to redux to persist if valid created successfully
         let response = await this.props.userRegister(user, this.props.users);
 
         if (response.status) {
